@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div id="content">
+        <h1 class="title_position" >Sign up</h1>
+    {{ user.username }}
+    {% if form == None %}
+        <a href=/create_user_engineer>create engineer</a>
+    {% endif %}
+    {% if name_used %}
+    <p class="error">The name have been occupied!</p>
+    {% endif %}
+    {% if form %}
+        <div class="form_postion">
+           <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <table>
+                    {{form.as_table}}
+                </table>
+                <input type="submit" value="Sign up" class="btn btn-sub">
+           </form>
+        </div>
+    {% endif %}
+</div>
+{% endblock main %}
