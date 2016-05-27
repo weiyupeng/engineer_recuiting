@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+   <title>airbnb</title>
+   <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+   <link href="../static/css/base.css" rel="stylesheet">
+   <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+   <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="../static/js/base1.js"></script>
+</head>
+<body class="bgbd">
+  <header>
+    <nav class="navbar navbar-default" role="navigation">
+       <div class="navbar-header">
+           <ul class="nav navbar-nav navbar-left">
+               <li><a class="navbar-brand" href="#">Airbnb</a><li>
+               <li class="active"><a href="../transaction_history.html">History</a></li>
+               <li class="active"><a href="../message/show_calling_people">MessageBox</a></li>
+           </ul>
+       </div>
+       <div>
+          <ul class="nav navbar-nav navbar-right">
+             <!--<li class="active"><a href="./sign_in.html">Sign in</a></li>-->
+             <!--<li><a href="./sign_up">Sign up</a></li>-->
+             <!--<li><a href="./sign_up">Become Owner</a></li>-->
+             <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   Clike me
+                   <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="../.html">My Info!</a></li>
+                    <li><a href="../.html">My Apartment!</a></li>
+                   <li><a href="/./company_homepage/department_create">create new apartment!</a></li>
+                   <li><a href="../approvinglist.html">my Account</a></li>
+                   <li><a href="/./logout.html">Log Out!</a></li>
+                   <!--<li class="divider"></li>-->
+                   <!--<li><a href="#">分离的链接</a></li>-->
+                   <!--<li class="divider"></li>-->
+                   <!--<li><a href="#">另一个分离的链接</a></li>-->
+                </ul>
+             </li>
+          </ul>
+       </div>
+        <div>
+          <ul class="nav navbar-nav navbar-right">
+             <!--<li class="active"><a href="./sign_in.html">Sign in</a></li>-->
+             <!--<li><a href="./sign_up">Sign up</a></li>-->
+             <!--<li><a href="./sign_up">Become Owner</a></li>-->
+             <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   shen me gui
+                   <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+
+                   <li><a href="../checkinglist.html">My application</a></li>
+                   <li><a href="#">My information</a></li>
+                </ul>
+             </li>
+          </ul>
+       </div>
+    </nav>
+  </header>
+  <main>
+      <div class="container">
+          {% block main %}
+          {% endblock main %}
+      </div>
+  </main>
+</body>
+</html>

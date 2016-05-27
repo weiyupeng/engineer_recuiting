@@ -21,6 +21,9 @@ from django.conf.urls.static import static
 from engineer_recuiting import settings
 
 urlpatterns = [
+    url(r'^$','engineer_recuiting.authenticating.views.log_in'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'create_user_(\w+)','engineer_recuiting.authenticating.views.create_user' )
+    url(r'^create_user_(\w+)','engineer_recuiting.authenticating.views.create_user'),
+    url(r'^logout','engineer_recuiting.authenticating.views.all_logout',name='logout'),
+    url(r'^engineer/',include('engineer_recuiting.engineer.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

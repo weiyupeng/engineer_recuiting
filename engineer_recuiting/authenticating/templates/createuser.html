@@ -6,6 +6,10 @@
     {{ user.username }}
     {% if form == None %}
         <a href=/create_user_engineer>create engineer</a>
+
+
+
+
     {% endif %}
     {% if name_used %}
     <p class="error">The name have been occupied!</p>
@@ -22,5 +26,12 @@
            </form>
         </div>
     {% endif %}
+</div>
+<div id="description">
+    <p>description</p>
+    <p>it's the template to create user, i mean any user, based on the different content of the form, we can create different type of User
+</p>
+    <p>we still need js to help us check the validity of user_name,passcode,if passcode and comfirm passcode match </p>
+    <p>we don't allow user name includes '_'</p>
 </div>
 {% endblock main %}

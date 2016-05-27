@@ -1,0 +1,17 @@
+<{% extends 'engineer_base.html' %}
+
+{% block main %}
+    <p>hi {{ user.username }}</p>
+        <div class="form_postion">
+           <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <table>
+                    {{form.as_table}}
+                </table>
+                <input type="submit" value="adding" class="btn btn-sub">
+           </form>
+        </div>
+</div>
+
+{% endblock main %}

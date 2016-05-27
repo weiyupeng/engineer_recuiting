@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+#login url
+LOGIN_URL='/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'engineer_recuiting/media')
 MEDIA_URL = '/media/'
 # Application definition

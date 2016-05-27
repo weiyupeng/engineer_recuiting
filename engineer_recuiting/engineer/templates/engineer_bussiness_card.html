@@ -1,0 +1,7 @@
+{% extends 'engineer_base.html' %}
+
+{% block main %}
+{% for each in engineer %}
+    <p>{{ each.id }}++{{ each.username }}++{{ each.email }}+{{ each.engineerprofile.review_score }}+{{ each.engineerprofile.description }}</p>
+    {% endfor %}
+{% endblock main %}

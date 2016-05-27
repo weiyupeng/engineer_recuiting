@@ -1,0 +1,26 @@
+{% extends 'engineer_base.html' %}
+
+{% block main %}
+{% if is_change %}
+    <p>change success</p>
+{% endif %}
+    <p>hi {{ user.username }}</p>
+        <div class="form_postion">
+           <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <table>
+                    {{form.as_table}}
+                </table>
+                <input type="submit" value="change" class="btn btn-sub">
+           </form>
+        </div>
+    <li><a href="/engineer/my_info_passcode">change passcode</a></li>
+    <li><a href="/engineer/my_info_">change basic info</a></li>
+    {% for degree in degrees %}
+
+        <p> {{ degree.status }}+{{ degree.degree }}+{{ degree.university }}+<img src="{{ degree.img.url }}" >+
+        <a href={% url 'engineer_recuiting.engineer.views.delete_degree' degree.id  %}> delete</a> </p>
+    {% endfor %}
+    <li><a href="/engineer/add_degree">adding new degree</a></li>
+{% endblock main %}
