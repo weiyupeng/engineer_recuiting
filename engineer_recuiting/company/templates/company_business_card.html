@@ -1,0 +1,8 @@
+{% extends 'company_base.html' %}
+
+{% block main %}
+{{ company.credit }}+++{{ company.company_name }}+++++++++++++++
+    {% for each in departments  %}
+        {{ each.department_name }}++
+    {%  endfor%}
+{% endblock main %}

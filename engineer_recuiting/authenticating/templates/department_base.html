@@ -15,8 +15,10 @@
        <div class="navbar-header">
            <ul class="nav navbar-nav navbar-left">
                <li><a class="navbar-brand" href="#">Airbnb</a><li>
-               <li class="active"><a href="../transaction_history.html">History</a></li>
-               <li class="active"><a href="../message/show_calling_people">MessageBox</a></li>
+               <li class="active"><a href="../department_homepage/transaction">History</a></li>
+                <li class="active"><a href="../message/show_calling_people">MessageBox</a></li>
+
+
            </ul>
        </div>
        <div>
@@ -32,8 +34,12 @@
                 <ul class="dropdown-menu">
                     <li><a href="../.html">My Info!</a></li>
                     <li><a href="../.html">My Apartment!</a></li>
-                   <li><a href="/./company_homepage/department_create">create new apartment!</a></li>
-                   <li><a href="../approvinglist.html">my Account</a></li>
+                    <li><a href="../department_homepage/transaction">My Apartment!</a></li>
+                   <li><a href={% url 'create_recruitment' %}>create new recruitment!</a></li>
+                   <li><a href={% url 'view_history' %}>history</a></li>
+                    <li><a href={% url 'show_message_box' %}>message_box!</a></li>
+                    <li><a href={% url 'department_bussiness_card' pk=user.departmentprofile.id %}>department_info_bussiness_card</a></li>
+
                    <li><a href="/./logout.html">Log Out!</a></li>
                    <!--<li class="divider"></li>-->
                    <!--<li><a href="#">分离的链接</a></li>-->

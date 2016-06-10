@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf.urls.static import static
-
+from django.contrib.auth.decorators import login_required
+from engineer_recuiting.department.views import ShowRecruitmentDetail
+from engineer_recuiting.application.views import ApplicationDetailView
 
 from engineer_recuiting import settings
 
@@ -26,4 +28,11 @@ urlpatterns = [
     url(r'^create_user_(\w+)','engineer_recuiting.authenticating.views.create_user'),
     url(r'^logout','engineer_recuiting.authenticating.views.all_logout',name='logout'),
     url(r'^engineer/',include('engineer_recuiting.engineer.urls')),
+    url(r'^company/',include('engineer_recuiting.company.urls')),
+    url(r'^department/',include('engineer_recuiting.department.urls')),
+    url(r'^application/',include('engineer_recuiting.application.urls')),
+    url(r'^message/',include('engineer_recuiting.message.urls')),
+    url(r'^comments/',include('engineer_recuiting.comment.urls')),
+    url(r'^recuirtment_detail/(?P<pk>\d+)/$',login_required(ShowRecruitmentDetail.as_view()),name='recuirtment_detail'),
+    url(r'^application_detail/(?P<pk>\d+)/$',login_required(ApplicationDetailView.as_view()),name='application_detail'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

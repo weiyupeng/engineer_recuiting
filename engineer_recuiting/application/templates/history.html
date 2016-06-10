@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div>
+{% for each in applications %}
+    {{ each.applier }}++{{ each.applier }}++{{ each.date }}++{{ each.recruitment.title }}++{{each.recruitment.department  }}
+    <p>
+        each.comment.engineer_review:{{ each.comment.engineer_review }}
+    </p>
+    <p>
+        each.comment.department_review:{{ each.comment.department_review}}
+    </p>
+    <p>
+    {% if  user.engineerprofile %}
+        {% if  each.comment.engineer_review == None %}
+            <a href={% url 'create_engineer_comment' each.comment.id %}>add comment!</a>
+        {% endif %}
+    {% endif %}
+    </p>
+    <p>
+    {% if  user.departmentprofile %}
+        {% if  each.comment.department_review == None %}
+            <a href={% url 'create_departments_comment' each.comment.id %}>add comment!</a>
+        {% endif %}
+    {% endif %}
+    </p>
+{% endfor %}
+</div>
+{% endblock main %}

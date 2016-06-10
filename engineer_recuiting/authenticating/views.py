@@ -8,6 +8,7 @@ from django.utils.html import escape
 
 from engineer_recuiting.engineer.forms import EngineerProfile,EngineerCreationForm
 from engineer_recuiting.authenticating.forms import LoginForm,UserCreationForm
+from engineer_recuiting.company.models import CompanyProfile,CompanyProfileForm
 from engineer_recuiting import settings
 # it's the view to create different types user
 def create_user(req,type):
@@ -26,6 +27,12 @@ def create_user(req,type):
                 return create_engineer_file(req,form)
             else:
                 return render(req,'createuser.html',{'form':form})
+        if type=='company':
+            form=CompanyProfileForm(req.POST,req.FILES)
+            if form.is_valid():
+                return create_company_file(req,form)
+            else:
+                return render(req,'createuser.html',{'form':form})
     else:
         #create user
         if type=='user':
@@ -33,6 +40,8 @@ def create_user(req,type):
         #create engnieer
         if type=='engineer':
             form=EngineerCreationForm()
+        if type=='company':
+            form=CompanyProfileForm()
         return render(req,'createuser.html',{'form':form})
 #called by create_user()
 def create_user_file(req,form):
@@ -66,9 +75,22 @@ def create_engineer_file(req,form):
             )
             send_email('email comfirm from our company',confirm_url,user.email)
             return HttpResponseRedirect('/engineer')
+#called by create_user
+def create_company_file(req,form):
+    user=req.user
+    if hasattr(user,'engineerprofile') or hasattr(user,'companyprofile') or hasattr(user,'departmentprofile'):
+        return HttpResponseRedirect('/hacker')
+    else:
+        company=form.save(commit=False)
+        company.user=user
+        company.save()
+        return HttpResponseRedirect('/company')
+
+
 #the fuction to help send email to different user
 def send_email(title,content,*to_suer):
     send_mail(title, content, settings.EMAIL_HOST_USER,to_suer ,fail_silently=False)
+
 def log_in(req):
     if req.method=='POST':
         form=LoginForm(req.POST)
@@ -82,6 +104,10 @@ def log_in(req):
             login(req,user)
             if hasattr(user,'engineerprofile'):
                 return HttpResponseRedirect('/engineer/')
+            if hasattr(user,'companyprofile'):
+                return HttpResponseRedirect('/company')
+            if hasattr(user,'departmentprofile'):
+                return HttpResponseRedirect('/department/')
             else:
                 # haven't create any actor yet...
                 return render(req,'createuser.html')

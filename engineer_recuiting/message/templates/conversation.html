@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    hi {{ user.username }}
+
+my conversation
+        {% for item in conversations %}
+            <li>
+                <p>{{ item.from_user }} SAID_TO {{ item.to_user }} THAT{{ item.content}} AT{{ item.time }} </p>
+            </li>
+        {% endfor %}
+         <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <table>
+                    {{form.as_table}}
+                </table>
+                <input type="submit" value="sned" class="btn btn-sub">
+           </form>
+</div>
+
+
+{% endblock main %}

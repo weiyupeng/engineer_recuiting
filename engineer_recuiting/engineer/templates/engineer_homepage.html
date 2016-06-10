@@ -5,12 +5,9 @@
     <p>hi {{ user.username }}</p>
     <p>hi you_have_<a href="../message/show_calling_people">{{ reminds }}</a>_new_messages</p>
 <div id="content">
-        <h1 class="title_position" >Sign up</h1>
-    {% if password_not_match %}
-    <p class="error">The password does not match!</p>
-    {% endif %}
+        <h1 class="title_position" >Search work info</h1>
         <div class="form_postion">
-           <form action="" method="post" enctype="multipart/form-data">
+           <form action={% url 'searching' %} ,  method="get" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <table>
@@ -21,44 +18,34 @@
         </div>
 </div>
 <div>
-my application
-        {% for item in applying %}
-            <li>
-                <p>{{ item.recruitment.title }} {{ item.recruitment.department.username }} {{ item.applier_message }} </p>
+    <p>application_info</p>
+    <li>appliying_application </li>
+    <p>
+    {% for each in applying_application %}
 
-            </li>
-        {% endfor %}
+        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}
+            <a href={% url 'application_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
+
+
+    <li>waiting_approveing_application </li>
+    <p>
+    {% for each in waiting_approveing_application %}
+
+        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}
+            <a href={% url 'application_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
+
+    <li>processing_application </li>
+    <p>
+    {% for each in processing_application %}
+
+        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}++{{ each.status }}
+            <a href={% url 'application_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
 </div>
 
-<div>
-my approving
-        {% for item in approving %}
-            <li>
-                <p>{{ item.recruitment.title }} {{ item.recruitment.department.username }} {{ item.applier_message }} </p>
-                <a href={% url 'application.views.ordering' item.id 1 %}> approving</a>
-                <a href={% url 'application.views.ordering' item.id 2 %}> deny</a>
-                <a href={% url 'message.views.send_message'  item.recruitment.department.id%}>contact him </a>
-
-            </li>
-        {% endfor %}
-</div>
-<div>
-my order
-        {% for item in order %}
-            <li>
-                <p>{{ item.recruitment.title }} {{ item.recruitment.department.username }} {{ item.applier_message }} {{ item.state }}</p>
-                {% if item.state == "O" %}
-                    <a href={% url 'application.views.start_working' item.id  %}> starting</a>
-                    <a href={% url 'application.views.approving' item.id 2 %}> problem</a>
-                    <a href={% url 'message.views.send_message'  item.recruitment.department.id%}>contact him </a>
-
-                {% endif %}
-                {% if item.state == "W" %}
-                    <a href={% url 'application.views.finish_work' item.id  %}> finish</a>
-                    <a href={% url 'application.views.approving' item.id 2 %}> problem</a>
-                    <a href={% url 'message.views.send_message'  item.recruitment.department.id%}>contact him </a>
-                {% endif %}
-            </li>
-        {% endfor %}
-</div>
 {% endblock main %}

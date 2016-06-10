@@ -1,0 +1,61 @@
+{% extends 'department_base.html' %}
+
+{% block main %}
+ <p>recruitment_info</p>
+     <p>approved_recruiting </p>
+    <p>
+    {% for each in approved_recruiting %}
+
+        <p>{{ each.begin_date }}++ {{ each.end_date}}++{{ each.description }}++{{ each.salary }}
+            <a href={% url 'recuirtment_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
+         <p>denied_recruiting </p>
+
+    {% for each in denied_recruiting %}
+
+        <p>{{ each.begin_date }}++ {{ each.end_date}}++{{ each.description }}++{{ each.salary }}++{{ each.description }}++deny?{{ each.reason_of_deny }}
+            <a href={% url 'recuirtment_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
+         <p>waited_recruiting </p>
+
+    {% for each in waited_recruiting %}
+
+        <p>{{ each.begin_date }}++ {{ each.end_date}}++{{ each.description }}++{{ each.salary }}++
+
+            <a href={% url 'recuirtment_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
+    </p>
+ <p>application_info</p>
+    <li>appliying_application </li>
+    <p>
+    {% for each in applying_application %}
+
+        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}
+            <a href={% url 'application_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
+
+
+    <li>waiting feed back application </li>
+    <p>
+    {% for each in waiting_feed_back_application %}
+
+        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}
+            <a href={% url 'application_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
+
+    <li>processing_application </li>
+    <p>
+    {% for each in processing_application %}
+
+        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}++{{ each.status }}
+            <a href={% url 'application_detail' each.id %}>detail!</a>
+        </p>
+    {% endfor %}
+
+
+{% endblock main %}

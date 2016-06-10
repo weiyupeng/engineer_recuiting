@@ -30,11 +30,12 @@
                    <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../.html">My Info!</a></li>
+                    <li><a href={% url 'compamy_bussiness_card' pk=user.companyprofile.id %}>My Business Card!</a></li>
                     <li><a href="../.html">My Apartment!</a></li>
-                   <li><a href="/./company_homepage/department_create">create new apartment!</a></li>
+                   <li><a href={% url 'create_department' %}>create new apartment!</a></li>
+                    <li><a href={% url 'view_history' %}>history</a></li>
                    <li><a href="../approvinglist.html">my Account</a></li>
-                   <li><a href="/./logout.html">Log Out!</a></li>
+                   <li><a href={% url 'logout' %}>Log Out!</a></li>
                    <!--<li class="divider"></li>-->
                    <!--<li><a href="#">分离的链接</a></li>-->
                    <!--<li class="divider"></li>-->

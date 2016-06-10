@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div id="content">
+    we are here~~~
+    {{ application.status }},{{ application.applier }}{{ application.applier_message }}{{ application.recruitment.title }}
+
+
+    {% if template == 'department'%}
+
+        {% if application.status == 'w' %}
+            <a href={% url 'department_status_change' application.id 'approve_application' %}>approving!</a>
+            <a href={% url 'department_status_change' application.id 'deny_application' %}>deny!</a>
+        {% endif %}
+        {% if application.status == 's' %}
+            <a href={% url 'department_status_change' application.id 'compaline' %}>complain!</a>
+            <a href={% url 'department_status_change' application.id 'finish_application' %}>finish!</a>
+        {% endif %}
+
+
+    {% elif template == 'engineer'%}
+        {% if application.status == 'a' %}
+            <a href={% url 'change_engineer_application_status' application.id 'confirm_application' %}>confirm!</a>
+            <a href={% url 'change_engineer_application_status' application.id 'deny_application' %}>deny!</a>
+        {% endif %}
+        {% if application.status == 's' %}
+            <a href={% url 'change_engineer_application_status' application.id 'complain' %}>complain!</a>
+
+        {% endif %}
+
+
+
+    {% endif %}
+
+</div>
+{% endblock main %}

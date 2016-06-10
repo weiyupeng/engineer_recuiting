@@ -1,0 +1,29 @@
+{% extends 'engineer_base.html' %}
+
+{% block main %}
+    the result of searching~~
+    <ul>
+    {% for recruitment in recruitments %}
+    <li>{{ recruitment.id }}++{{ recruitment.salary }}++{{ recruitment.title }}++++
+        <a href={% url 'recuirtment_detail' recruitment.id %}>detail!</a> </li>
+
+    {% endfor %}
+</ul>
+<div class="pagination">
+    <ul>
+        {% if paginator.has_previous %}
+        <li><a href="?page=">Previous</a></li>
+        {% endif %}
+        {% for pg in paginator.page_range %}
+        {% if paginator.number == pg %}
+        <li class="active"><a href="?page="></a></li>
+        {% else %}
+        <li><a href="?page="></a></li>
+        {% endif %}
+        {% endfor %}
+        {% if paginator.has_next %}
+        <li><a href="?page=">Next</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock main %}

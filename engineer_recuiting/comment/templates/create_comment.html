@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    hi {{ user.username }}
+<div id="content">
+        <h1 class="title_position" >make comment</h1>
+        <div class="form_postion">
+           <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <table>
+                    {{form.as_table}}
+                </table>
+                <input type="submit" value="Sign up" class="btn btn-sub">
+           </form>
+        </div>
+</div>
+{% endblock main %}

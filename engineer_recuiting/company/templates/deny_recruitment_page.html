@@ -1,0 +1,29 @@
+{% extends 'company_base.html' %}
+{% block main %}
+
+
+<div id="content">
+        <!--<h1 class="title_position" >Sign in</h1>-->
+        {% if falg %}
+            deny success ,you can write down the reason of denying this recruitment
+            <a href={% url 'add_the_reason_of_deny' id %}>writing the reason!</a>
+        {% else %}
+            <div class="form_postion">
+            <form action="" method="post">
+            {% csrf_token %}
+
+            <table>
+                {{form.as_table}}
+
+            </table>
+
+            <input type="submit" value="Sign in" class="btn sub-btn">
+
+            </form>
+            </div>
+        {% endif %}
+
+
+</div>
+
+{% endblock main %}

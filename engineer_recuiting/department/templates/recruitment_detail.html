@@ -1,0 +1,34 @@
+
+    {% extends 'base.html' %}
+{% block main %}
+ <p>{{ title }}</p>
+     status:{{ recruitment_info.status }}+++{{ recruitment_info.id }}++{{ recruitment_info.salary }}
+    {% if template == 'department'%}
+        {% if recruitment_info.status == 'w' %}
+            <a href={% url 'modify_recruitment_department' recruitment_info.id  %} >updating!</a>
+            <a href={% url 'delete_recruitment_department' recruitment_info.id %}>deleting!</a>
+        {% endif %}
+
+        {% if recruitment_info.status == 'd' %}
+            <a href={% url 'delete_recruitment_department' recruitment_info.id %}>deleting!</a>
+        {% endif %}
+
+    {% elif template == 'company' %}
+        <a href={% url 'company_change_recruiment_status' recruitment_info.id 'approve' %}>approve</a>
+        <a href={% url 'company_change_recruiment_status' recruitment_info.id 'deny' %}>deny</a>
+    {% elif template == 'engineer'%}
+
+        <a href={% url 'create_application' recruitment_info.id  %}>applying~~</a>
+    {% endif %}
+{% endblock main %}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+{% extends 'department_base.html' %}
+
+{% block main %}
+    <p>actully it's the same with other detail view ,just slice different...</p>
+ <p>{{ title }}</p>
+     status:{{ recruitment_info.status }}+++{{ recruitment_info.id }}++{{ recruitment_info.salary }}
+    <a href={% url 'modify_ecruitment' each.id 'approve' %}>approve</a>
+    <a href={% url 'modify_ecruitment' each.id 'deny' %}>deny</a>
+{% endblock main %}

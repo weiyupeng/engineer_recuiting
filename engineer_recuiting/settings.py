@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'engineer_recuiting.engineer',
     'engineer_recuiting.message',
     'engineer_recuiting.notification',
+    'engineer_recuiting.application',
 )
 
 MIDDLEWARE_CLASSES = (

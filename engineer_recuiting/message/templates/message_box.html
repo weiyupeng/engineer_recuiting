@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+## different user should have different base~~~ how to slove it
+
+{% block main %}
+
+    hi {{ user.username }}
+<li>you_have_{{ reminder }}_messages</li>
+<div>
+my unread message
+        {% for item in unread_message %}
+            <li>
+                <p>AT{{ item.time }} MR/MS{{ item.from_user.username}}LEAVE_ONE_
+                    <a href={% url 'sending_message'  item.from_user.id%}>MESSAGE</a>_TO YOU </p>
+
+            </li>
+        {% endfor %}
+</div>
+
+<div>
+        my contactor
+        {% for item in recently_contactor %}
+            <li>
+            <a href={% url 'sending_message'  item.id%}>{{ item.username }}</a>
+
+
+            </li>
+        {% endfor %}
+</div>
+{% endblock main %}
