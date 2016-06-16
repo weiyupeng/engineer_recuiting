@@ -1,10 +1,21 @@
-from django.shortcuts import render
+
 from datetime import datetime
-from django.views.generic import DetailView,FormView,ListView
 from django.contrib.auth.models import User
+from django.views.generic import DetailView,FormView,ListView
 from engineer_recuiting.application.models import Application,ApplicationCreateForm
 from engineer_recuiting.department.models import RecruitmentInformation,DepartmentProfile
 # Create your views here.
+
+'''
+
+this view is responsible for anything concern about the application.which application means after engineer
+submit their application, it will be stored by application form, and the application can be a contract or an history
+transaction baesd on the different status
+
+this view includes any operation about application , CRUD....
+
+'''
+
 class CreateApplicationView(FormView):
     form_class = ApplicationCreateForm
     success_url = 'success'
@@ -22,6 +33,7 @@ class CreateApplicationView(FormView):
         instance.save()
 
         return super(CreateApplicationView, self).form_valid(form)
+
 class ApplicationDetailView(DetailView):
     model = Application
     context_object_name = 'application'

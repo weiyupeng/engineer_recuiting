@@ -1,17 +1,25 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate,login,logout
-from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
 from django.db import transaction
-from django.core.mail import  send_mail
+from django.shortcuts import render
 from django.utils.html import escape
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate,login,logout
 
-from engineer_recuiting.engineer.forms import EngineerProfile,EngineerCreationForm
+from engineer_recuiting import settings
 from engineer_recuiting.authenticating.forms import LoginForm,UserCreationForm
 from engineer_recuiting.company.models import CompanyProfile,CompanyProfileForm
-from engineer_recuiting import settings
-# it's the view to create different types user
+from engineer_recuiting.engineer.forms import EngineerProfile,EngineerCreationForm
+
+"""
+this viev is concern about amdining anything related with login, sign out, sending confirm email and stuff like that
+"""
+
+
 def create_user(req,type):
+
+    '''create user , ang baesd on the differnt type of user,we create the different profile for them '''
+
     if req.method=='POST':
         #create user
         if type=='user':
@@ -20,6 +28,7 @@ def create_user(req,type):
                 return create_user_file(req,form)
             else:
                 return render(req,'createuser.html',{'form':form})
+
         #create engineer
         if type=='engineer':
             form=EngineerCreationForm(req.POST)
@@ -37,12 +46,15 @@ def create_user(req,type):
         #create user
         if type=='user':
             form=UserCreationForm()
+
         #create engnieer
         if type=='engineer':
             form=EngineerCreationForm()
         if type=='company':
             form=CompanyProfileForm()
+
         return render(req,'createuser.html',{'form':form})
+
 #called by create_user()
 def create_user_file(req,form):
     try:
@@ -57,6 +69,7 @@ def create_user_file(req,form):
             user = authenticate(username=username, password=password)
             login(req,user)
             return render(req,'createuser.html')
+
 #called by create_user()
 def create_engineer_file(req,form):
     user=req.user
@@ -75,6 +88,7 @@ def create_engineer_file(req,form):
             )
             send_email('email comfirm from our company',confirm_url,user.email)
             return HttpResponseRedirect('/engineer')
+
 #called by create_user
 def create_company_file(req,form):
     user=req.user
@@ -117,6 +131,7 @@ def log_in(req):
     else:
         form=LoginForm()
         return render(req,'login.html',{'form':form})
+
 def all_logout(req):
     logout(req)
     return HttpResponseRedirect('/')
