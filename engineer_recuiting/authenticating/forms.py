@@ -1,17 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
+
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=30)
     password = forms.CharField(widget=forms.PasswordInput())
 
-    def clean_username(self):
-        cd=self.cleaned_data
-        user_name=cd.get('username')
 
-        if len(user_name)<3:
-            raise forms.ValidationError("please put more characthers")
-
-        return user_name
 
 class UserCreationForm(forms.ModelForm):
 

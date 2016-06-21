@@ -23,7 +23,7 @@ from engineer_recuiting.application.views import ApplicationDetailView
 from engineer_recuiting import settings
 
 urlpatterns = [
-    url(r'^$','engineer_recuiting.authenticating.views.log_in'),
+    url(r'^$','engineer_recuiting.authenticating.views.log_in',name='login'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^create_user_(\w+)','engineer_recuiting.authenticating.views.create_user'),
     url(r'^logout','engineer_recuiting.authenticating.views.all_logout',name='logout'),
