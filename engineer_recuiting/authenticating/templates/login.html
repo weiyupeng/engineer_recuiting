@@ -1,23 +1,49 @@
 {% extends 'base.html' %}
 
+{% load staticfiles i18n %}
+
+{% block head %}
+<link href="../static/css/login.css" rel="stylesheet">
+{% endblock head %}
+
 {% block main %}
-<div id="content">
-       {% if wrong_password %}
-        <p class="error">username or password is wrong!</p>
+<div class="cover">
+    <h1 class="logo">Engineer_recruit</h1>
+       <!--{% if wrong_password %}-->
+        <!--<p class="error">username or password is wrong!</p>-->
+        <!--{% endif %}-->
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{ error }}
+        </div>
+        {% endfor %}
         {% endif %}
-        <!--<h1 class="title_position" >Sign in</h1>-->
-        <div class="form_postion">
-            <form action="" method="post">
+        <div class="login">
+            <h2>{% trans 'Log in' %}</h2>
+            <form action="" method="post" role="form">
             {% csrf_token %}
-
-            <table>
-                {{form.as_table}}
-
-            </table>
-
-            <input type="submit" value="Sign in" class="btn sub-btn">
-                <span class="btn sub-btn"><a href="/create_user_user">Sign up</a></span>
+            <div class="form-group{% if form.username.errors %} has-error{% endif %}">
+            <label for="username">{% trans 'Username' %}</label>
+            <input type="text" class="form-control" id="username" name="username">
+            {% for error in form.username.errors %}
+            <label class="control-label">{{ error }}</label>
+            {% endfor %}
+            </div>
+            <div class="form-group{% if form.password.errors %} has-error{% endif %}">
+            <label for="password">{% trans 'Password' %}</label>
+            <input type="password" class="form-control" id="password" name="password">
+            {% for error in form.password.errors %}
+            <label class="control-label">{{ error }}</label>
+            {% endfor %}
+            </div>
+            <div class="form-group">
+            <button type="submit" class="btn btn-default">{% trans 'Log in' %}</button>
+            <a href="./create_user_user.html" class="btn btn-link">{% trans 'Sign up for Engineer_recruit' %}</a>
+            </div>
             </form>
         </div>
 </div>
 {% endblock main %}
+

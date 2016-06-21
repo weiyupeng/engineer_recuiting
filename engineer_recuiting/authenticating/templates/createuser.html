@@ -1,38 +1,52 @@
 {% extends 'base.html' %}
+{% load staticfiles i18n %}
 
+{% block head %}
+<link href="../static/css/createuser.css" rel="stylesheet">
+{% endblock head %}
 {% block main %}
 <div id="content">
-        <h1 class="title_position" >Sign up</h1>
-    {{ user.username }}
+    <h5>Hi {{ user.username }}</h5>
+        <h1 class="logo" >Sign up</h1>
+
     {% if form == None %}
         <a href=/create_user_engineer>create engineer</a>
         <a href=/create_user_company>create company</a>
-
-
-
 
     {% endif %}
     {% if name_used %}
     <p class="error">The name have been occupied!</p>
     {% endif %}
     {% if form %}
-        <div class="form_postion">
-           <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+        <div class="signup">
+            <h2>{% trans 'Sign up for Engineer_recruit' %}</h2>
+           <form action="" method="post" enctype="multipart/form-data" role="form">
 
-                <table>
-                    {{form.as_table}}
-                </table>
-                <input type="submit" value="Sign up" class="btn btn-sub">
+                {% csrf_token %}
+                {% for field in form.visible_fields %}
+                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label for="{{ field.label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <span class="help-block">{{ field.help_text|safe }}</span>
+                {% endif %}
+                {% for error in field.errors %}
+                <label class="control-label">{{ error }}</label>
+                {% endfor %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-lg">{% trans 'Create an account' %}</button>
            </form>
         </div>
     {% endif %}
 </div>
-<div id="description">
-    <p>description</p>
+<div class="description">
+    <h4>description</h4>
     <p>it's the template to create user, i mean any user, based on the different content of the form, we can create different type of User
 </p>
     <p>we still need js to help us check the validity of user_name,passcode,if passcode and comfirm passcode match </p>
     <p>we don't allow user name includes '_'</p>
 </div>
 {% endblock main %}
+
+
