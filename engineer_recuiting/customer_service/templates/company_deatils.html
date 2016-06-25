@@ -1,0 +1,9 @@
+{{ company.status }}++{{ company.description }}++ {{ company.account_bank_name}}++<img src="{{ company.bank_permit_img.url }}" >
++++++++++++   <img src="{{ company.permit_img.url }}">
+{% if company.status == 'W' %}
+    +++++<a href={% url 'modify_company_status' company.id '1' %}>approve</a>
+    +++++<a href={% url 'modify_company_status' company.id '0' %}>reject</a>
+{% endif %}
+<div>
+    <a href={% url 'update_money' company.id  %}>update money</a>
+</div>

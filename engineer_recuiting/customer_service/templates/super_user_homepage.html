@@ -1,0 +1,31 @@
+{#{% extends 'base.html' %}#}
+<div>
+companies
+    {% for each in companies %}
+    <li>{{ each.status }}+++{{ each.description }}++{{ each.contacter}}++{{ each.company_name }}++
+    <a href={% url 'show_company_detail' each.id %}>detail</a>
+    </li>
+    {% endfor %}
+</div>
+<div>
+complains
+    {% for each in complaints  %}
+        <li>{{ each.status }}++{{ each.applier_message}}++{{ each.status }}+++
+         <a href={% url 'handle_complain' each.recruitment.id %}>handle complian</a>
+        </li>
+
+
+    {% endfor %}
+</div>
+
+<div>
+    search_the_company
+    <form action={% url 'search_company' %} ,  method="get" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <table>
+                    {{form.as_table}}
+                </table>
+                <input type="submit" value="Sign up" class="btn btn-sub">
+    </form>
+</div>

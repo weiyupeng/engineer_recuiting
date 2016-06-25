@@ -19,7 +19,10 @@
     <li><a href="/engineer/my_info_">change basic info</a></li>
     {% for degree in degrees %}
 
-        <p> {{ degree.status }}+{{ degree.degree }}+{{ degree.university }}+<img src="{{ degree.img.url }}" >+
+        <p> {{ degree.status }}+{{ degree.degree }}+{{ degree.university }}++
+            {% if degree.img.url != None %}
+                <img src="{{ degree.img.url }}" >
+            {% endif %}
         <a href={% url 'engineer_recuiting.engineer.views.delete_degree' degree.id  %}> delete</a> </p>
     {% endfor %}
     <li><a href="/engineer/add_degree">adding new degree</a></li>

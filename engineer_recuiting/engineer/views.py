@@ -152,11 +152,12 @@ def changeApplicationStatus(req,app_id,way):
             return HttpResponseRedirect("/you can't do this action" )
         application.recruitment.status='w'
         applicationStatusChange(application,'s')
-    if way=='compaline':
+    if way=='complain':
         if application.status!='s':
             return HttpResponseRedirect("/you can't do this action" )
         applicationStatusChange(application,'c')
-    application.save()
+        application.save()
+        print application.status
     return HttpResponseRedirect('/success~~~')
 
 

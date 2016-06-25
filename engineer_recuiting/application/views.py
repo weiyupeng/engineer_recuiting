@@ -78,6 +78,7 @@ class AppliactionHistoryView(AuthRequiredMixin,ListView):
     template_name ='history.html'
     model = Application
     context_object_name = 'applications'
+    paginate_by = 10
     def get_queryset(self):
         user=User.objects.get(id=self.request.user.id)
         if hasattr(user,'departmentprofile'):
@@ -90,10 +91,14 @@ class AppliactionHistoryView(AuthRequiredMixin,ListView):
             for each in departments:
                 application.filter(recruitment__status=departments.user)
             return application
+    def get_context_data(self, **kwargs):
 
-
+        context=super(AppliactionHistoryView,self).get_context_data(**kwargs)
+        context['range'] = range(context["paginator"].num_pages)
+        return context
 def applicationStatusChange(application,status):
     application.status=status
     return True
+
 
 
