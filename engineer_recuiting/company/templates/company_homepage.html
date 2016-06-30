@@ -1,25 +1,74 @@
 {% extends 'company_base.html' %}
+{% block head %}
+
+<link href="../static/css/companyHomepage.css" rel="stylesheet">
+<script src="../static/js/companyHomepage.js"></script>
+{% endblock %}
 {% block main %}
+<div id="tab">
+    <ul>
+    <li class="active">
+        <a href="#">department</a>
+    </li>
+    <li>
+        <a href="#">waiting for approved recruitment</a>
+    </li>
 
+    </ul>
+    <div class="content">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>description</th>
+                <th>detail</th>
 
-<div id="content">
-
-    <p>
-        department
+            </tr>
+            </thead>
+            <tbody>
         {% for each in department %}
-        {{ each.id }}+++ {{ each.description }}
-        <a href={% url 'department_bussiness_card' pk=each.id %}>detail!</a>
+
+
+            <tr>
+                <td>{{ each.id }}</td>
+                <td>{{ each.description }}</td>
+                <td><a href={% url 'department_bussiness_card' pk=each.id %}>detail!</a></td>
+
+            </tr>
 
         {% endfor %}
-    </p>
-    <p>
-        <p>waiting for approved recruitment</p>
-        {% for each in waiting_recruitment_info %}
-        <p>{{ each.id }}+++ {{ each.salary}}++{{ each.description }}</p>
-        <a href={% url 'recuirtment_detail' each.id %}>detail!</a>
+            </tbody>
+        </table>
+    </div>
+    <div>
+
+
+           <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>salary</th>
+                <th>description</th>
+                <th>Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+       {% for each in waiting_recruitment_info %}
+
+
+            <tr>
+                <td>{{ each.id }}</td>
+                <td> {{ each.salary }}</td>
+                <td>{{ each.description }}</td>
+                <td><a href={% url 'recuirtment_detail' each.id %}>detail!</a></td>
+            </tr>
+
         {% endfor %}
-    </p>
+            </tbody>
+        </table>
+    </div>
 
 </div>
+
 
 {% endblock main %}

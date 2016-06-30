@@ -1,0 +1,8 @@
+#tab{width:495px;margin-top:40px;margin-left:40px;}
+#tab ul {list-style: none;margin: 0; padding: 0;overflow:hidden; float: left;}
+#tab ul li{width: 220px; height: 35px ;border: 1px solid;text-align:center;padding-top:5px;}
+#tab .active {background: #85d3f9;}
+#tab ul li a{text-decoration:none;}
+#tab div {width: 700px; height: 600px;position:absolute;left:300px; display: none;border: 1px solid;}
+#tab div.content{display:block;}
+
