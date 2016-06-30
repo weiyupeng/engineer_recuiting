@@ -3,4 +3,8 @@
 {% block main %}
 {{ department.user.id}}++{{ department.department_name }}+={{ department.contacter }}++
      <a href={% url 'sending_message' department.user.id %}>contact him/her!</a>
+
+    {% for each in department.user.recruitmentinformation_set.all %}
+        {{ each.id }}
+    {% endfor %}
 {% endblock main %}
