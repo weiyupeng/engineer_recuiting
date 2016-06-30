@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from engineer_recuiting.engineer.views import EngineerprofileView,SearchingResulteView
 
 urlpatterns = patterns('engineer_recuiting.engineer.views',
-    url(r'^$','show'),
+    url(r'^$','show',name='show_engineer_homepage'),
     url(r'^email_confirm_email=(\S+),id=(\d+)$','conform_email'),
     url(r'^my_info_(\w*)','manage_info',name='my_info'),
     url(r'^add_degree','add_degree'),

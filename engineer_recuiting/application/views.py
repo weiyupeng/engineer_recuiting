@@ -1,7 +1,11 @@
 
 from datetime import datetime
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.views.generic import DetailView,FormView,ListView
+from django.core.urlresolvers import reverse_lazy
+
+
 from engineer_recuiting.application.models import Application,ApplicationCreateForm
 from engineer_recuiting.department.models import RecruitmentInformation,DepartmentProfile
 # Create your views here.
@@ -15,8 +19,28 @@ transaction baesd on the different status
 this view includes any operation about application , CRUD....
 
 '''
+class AuthRequiredMixin(object):
+    " if user didn't login then send it back to login page"
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse_lazy('login'))
 
-class CreateApplicationView(FormView):
+        return super(AuthRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+class ApplicationRequiredMixin(object):
+    "make sure the user is the owner of the application"
+
+    def dispatch(self, request, *args, **kwargs):
+        application=Application.objects.get(id=int(self.kwargs['pk']))
+
+        if self.request.user.id == application.applier.id or \
+                        self.request.user.id == application.recruitment.department.id:
+            return super(ApplicationRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+        return HttpResponseRedirect('illgal')
+
+
+class CreateApplicationView(AuthRequiredMixin,FormView):
     form_class = ApplicationCreateForm
     success_url = 'success'
     template_name = 'create_application.html'
@@ -34,7 +58,7 @@ class CreateApplicationView(FormView):
 
         return super(CreateApplicationView, self).form_valid(form)
 
-class ApplicationDetailView(DetailView):
+class ApplicationDetailView(AuthRequiredMixin,ApplicationRequiredMixin,DetailView):
     model = Application
     context_object_name = 'application'
     template_name = 'appliaction_detail.html'
@@ -50,10 +74,11 @@ class ApplicationDetailView(DetailView):
             content['template']='company'
         return content
 
-class AppliactionHistoryView(ListView):
+class AppliactionHistoryView(AuthRequiredMixin,ListView):
     template_name ='history.html'
     model = Application
     context_object_name = 'applications'
+    paginate_by = 10
     def get_queryset(self):
         user=User.objects.get(id=self.request.user.id)
         if hasattr(user,'departmentprofile'):
@@ -66,10 +91,14 @@ class AppliactionHistoryView(ListView):
             for each in departments:
                 application.filter(recruitment__status=departments.user)
             return application
+    def get_context_data(self, **kwargs):
 
-
+        context=super(AppliactionHistoryView,self).get_context_data(**kwargs)
+        context['range'] = range(context["paginator"].num_pages)
+        return context
 def applicationStatusChange(application,status):
     application.status=status
     return True
+
 
 

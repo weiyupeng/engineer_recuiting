@@ -37,6 +37,14 @@ class CompanyProfileForm(forms.ModelForm):
     class Meta:
         model=CompanyProfile
         exclude=['user','account','credit','status']
+    def clean(self):
+        "we need put every restriction in there but now we just put the restrict of company name"
+        content=self.cleaned_data()
+        company_name=content.get('company_name')
+        if len(company_name)<3:
+            raise forms.ValidationError('name is too short')
+        return content
+
 class DenyRecruitmentForm(forms.ModelForm):
     class Meta:
         model=RecruitmentInformation

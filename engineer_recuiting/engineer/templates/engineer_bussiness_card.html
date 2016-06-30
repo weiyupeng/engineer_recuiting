@@ -1,4 +1,9 @@
-{% extends 'engineer_base.html' %}
+{% if user.userprofile == None %}
+    {% extends 'engineer_base.html' %}
+    {% else %}
+    {% extends 'department_base.html' %}
+
+{% endif %}
 
 {% block main %}
 {% for each in engineer %}

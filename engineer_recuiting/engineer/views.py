@@ -24,6 +24,7 @@ def comfirm_required(func):
             return HttpResponseRedirect('/please email confirm first')
         return func(*args, **kw)
     return wrapper
+
 @login_required
 @ comfirm_required
 def show(req):
@@ -69,7 +70,7 @@ def conform_email(req,email,id):
             print user.email
             user.engineerprofile.status='N'
             user.engineerprofile.save()
-            return HttpResponseRedirect('success conform')
+            return render(req,'success.html')
         else:
             return HttpResponseRedirect('hacker_email')
     except:
@@ -77,6 +78,7 @@ def conform_email(req,email,id):
 @login_required
 @ comfirm_required
 def manage_info(req,type):
+    "if type == '' that's mean user just want change basic info if not then he want change paacode"
     user=req.user
     if req.method=='POST':
         if type == '':
@@ -150,11 +152,12 @@ def changeApplicationStatus(req,app_id,way):
             return HttpResponseRedirect("/you can't do this action" )
         application.recruitment.status='w'
         applicationStatusChange(application,'s')
-    if way=='compaline':
+    if way=='complain':
         if application.status!='s':
             return HttpResponseRedirect("/you can't do this action" )
         applicationStatusChange(application,'c')
-    application.save()
+        application.save()
+        print application.status
     return HttpResponseRedirect('/success~~~')
 
 

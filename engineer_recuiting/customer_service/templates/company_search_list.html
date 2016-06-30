@@ -1,0 +1,6 @@
+{% for each in companies %}
+
+    <li>
+    {{ each.company_name }}++++{{ each.contacter }}++++{{ each.account }}+++<a href={% url 'show_company_detail' each.id %}>detail</a>
+    </li>
+{% endfor %}

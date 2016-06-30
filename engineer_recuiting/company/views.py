@@ -86,6 +86,7 @@ class CompanyDetailView(DetailView):
         return context
 @login_required
 def change_recruiment_status(req,recruitment_id,way):
+
     user=req.user
     recruitment_id=int(recruitment_id)
 
