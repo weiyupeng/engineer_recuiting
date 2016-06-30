@@ -3,11 +3,13 @@
 
 
 <div id="content">
-        <!--<h1 class="title_position" >Sign in</h1>-->
+
     <p>
         department
         {% for each in department %}
         {{ each.id }}+++ {{ each.description }}
+        <a href={% url 'department_bussiness_card' pk=each.id %}>detail!</a>
+
         {% endfor %}
     </p>
     <p>
@@ -17,19 +19,7 @@
         <a href={% url 'recuirtment_detail' each.id %}>detail!</a>
         {% endfor %}
     </p>
-        <div class="form_postion">
-            <form action="" method="post">
-            {% csrf_token %}
 
-            <table>
-                {{form.as_table}}
-
-            </table>
-
-            <input type="submit" value="Sign in" class="btn sub-btn">
-
-            </form>
-        </div>
-<div>
+</div>
 
 {% endblock main %}

@@ -38,7 +38,7 @@
                    <li><a href={% url 'create_recruitment' %}>create new recruitment!</a></li>
                    <li><a href={% url 'view_history' %}>history</a></li>
                     <li><a href={% url 'show_message_box' %}>message_box!</a></li>
-                    <li><a href={% url 'department_bussiness_card' pk=user.departmentprofile.id %}>department_info_bussiness_card</a></li>
+                    <li><a href={% url 'department_bussiness_card' user.departmentprofile.id %}>department_info_bussiness_card</a></li>
 
                    <li><a href="/./logout.html">Log Out!</a></li>
                    <!--<li class="divider"></li>-->

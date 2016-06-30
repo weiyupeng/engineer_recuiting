@@ -1,51 +1,183 @@
 {% extends 'engineer_base.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<link href="../static/css/engineerHomepage.css" rel="stylesheet">
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="../static/js/engineerHomepage.js"></script>
+{% endblock head %}
+
 {% block main %}
 
-    <p>hi {{ user.username }}</p>
-    <p>hi you_have_<a href="../message/show_calling_people">{{ reminds }}</a>_new_messages</p>
-<div id="content">
-        <h1 class="title_position" >Search work info</h1>
-        <div class="form_postion">
-           <form action={% url 'searching' %} ,  method="get" enctype="multipart/form-data">
-                {% csrf_token %}
-
-                <table>
-                    {{form.as_table}}
-                </table>
-                <input type="submit" value="Sign up" class="btn btn-sub">
-           </form>
-        </div>
-</div>
-<div>
-    <p>application_info</p>
-    <li>appliying_application </li>
-    <p>
-    {% for each in applying_application %}
-
-        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}
-            <a href={% url 'application_detail' each.id %}>detail!</a>
-        </p>
-    {% endfor %}
+    <p class="p-content">hi {{ user.username }} ,you have {% if reminds %}<a class="remind" href="../message/show_calling_people">{{ reminds }}</a>{% else %}0{% endif %} new messages</p>
 
 
-    <li>waiting_approveing_application </li>
-    <p>
-    {% for each in waiting_approveing_application %}
 
-        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}
-            <a href={% url 'application_detail' each.id %}>detail!</a>
-        </p>
-    {% endfor %}
+    <div class="search_form">
+       <form action={% url 'searching' %} ,  method="get" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="beg-date">
 
-    <li>processing_application </li>
-    <p>
-    {% for each in processing_application %}
+                    <input id="id_beg_data" name="beg_data" type="text" value="Beg date">
+                </div>
+                <div class="end-date">
 
-        <p>{{ each.applier.username }}++ {{ each.date}}++{{ each.recruitment.title }}++{{ each.status }}
-            <a href={% url 'application_detail' each.id %}>detail!</a>
-        </p>
-    {% endfor %}
+                    <input id="id_end_data" name="end_data" type="text" value="End date">
+
+                </div>
+                <div class="state">
+
+                    <select id="id_state" name="state">
+                        <option value="BJ" aria-checked="true">BJ</option>
+                        <option value="TJ">TJ</option>
+                    </select>
+                </div>
+                <div class="major">
+
+                    <select id="id_major" name="major">
+                        <option value="CS" aria-checked="true">computer science</option>
+                        <option value="EE">electric engnieer</option>
+                    </select>
+
+                </div>
+
+            <input type="submit" value="search" class="search-btn">
+       </form>
+    </div>
+<div class="divide"></div>
+
+<div id="tab">
+    <ul>
+    <li class="active">
+        <a href="#">appliying_application</a>
+    </li>
+    <li>
+        <a href="#">waiting_approveing_application</a>
+    </li>
+    <li>
+        <a href="#">processing_application</a>
+    </li>
+    </ul>
+    <div class="content">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+        {% for each in applying_application %}
+
+
+            <tr>
+                <td>{{ each.applier.username }}</td>
+                <td> {{ each.date}}</td>
+                <td>{{ each.recruitment.title }}</td>
+                <td><a href={% url 'application_detail' each.id %}>detail!</a></td>
+            </tr>
+
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+
+
+           <table class="table">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+        {% for each in waiting_approveing_application %}
+
+
+            <tr>
+                <td>{{ each.applier.username }}</td>
+                <td> {{ each.date}}</td>
+                <td>{{ each.recruitment.title }}</td>
+                <td><a href={% url 'application_detail' each.id %}>detail!</a></td>
+            </tr>
+
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        <div>
+
+
+           <table class="table">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+        {% for each in processing_application %}
+
+
+            <tr>
+                <td>{{ each.applier.username }}</td>
+                <td> {{ each.date}}</td>
+                <td>{{ each.recruitment.title }}</td>
+                <td><a href={% url 'application_detail' each.id %}>detail!</a></td>
+            </tr>
+
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock main %}
+
+<!--<style>-->
+<!--#tab{width:320px;}-->
+<!--#tab ul {list-style: none;margin: 0; padding: 0;overflow:hidden; float: left;}-->
+<!--#tab ul li{width: 80px; height: 30px ;border: 1px solid;}-->
+<!--#tab .active {background: yellow;}-->
+<!--#tab div {width: 230px; height: 200px; display: none;border: 1px solid; float: right;}-->
+<!--</style>-->
+<!--<script>-->
+<!--window.onload=function (){-->
+<!--var oDiv=document.getElementById("div1");-->
+<!--var aBtn=oDiv.getElementsByTagName("li");-->
+<!--var aDiv=oDiv.getElementsByTagName("div");-->
+
+<!--for (var i = 0; i < aBtn.length; i++) {-->
+<!--aBtn[i].index=i;-->
+<!--aBtn[i].onmouseover=function (){-->
+<!--for (var i = 0; i < aBtn.length; i++) {-->
+<!--aBtn[i].className="";-->
+<!--aDiv[i].style.display="none";-->
+<!--};-->
+<!--this.className="active";-->
+<!--aDiv[this.index].style.display="block";-->
+
+<!--};-->
+<!--};-->
+<!--}-->
+<!--</script>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<div id="div1">-->
+<!--<ul>-->
+<!--<li class="active"><a href="#">公司介绍</a></li>-->
+<!--<li><a href="#">关于我们</a></li>-->
+<!--</ul>-->
+<!--<div style="display:block;">111</div>-->
+<!--<div>222</div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
